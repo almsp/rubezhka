@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container my-5">
+    <h1 class="text-center mb-5">Our Animals</h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'create_animal' %}" class="btn btn-primary">Добавить животное</a>
+{% else %}
+    <a href="{% url 'login' %}" class="btn btn-primary">Войти, чтобы Добавить животное</a>
+{% endif %}
+    <div class="row">
+      {% for animal in animals %}
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            {% if animal.image %}
+            <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}" style="width: 250px; height: 260px">
+            {% else %}
+            <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="card-img-top" alt="{{ animal.name }}">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ animal.name }}</h5>
+              <p class="card-text">{{ animal.breed }}</p>
+              <p class="card-text">{{ animal.category }}</p>
+              <p class="card-text">{{ animal.age }} years old</p>
+              {% if animal.price %}
+                <h6 class="card-subtitle mb-2 text-muted">{{ animal.price }}$</h6>
+              {% endif %}
+              <p class="card-text">{{ animal.description }}</p>
+              {% if user.is_authenticated %}
+                  <a href="{% url 'animal_detail' animal.id %}" class="btn btn-primary">Перейти</a>
+              {% else %}
+                  <a href="{% url 'login' %}" class="btn btn-primary">Войти, чтобы купить</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

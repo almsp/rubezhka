@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="text-center mb-5">Items</h2>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for item in items %}
+<div class="col">
+  <div class="card h-100">
+    <div class="card-img-top p-3 bg-light mx-auto" style="width: 150px; height: 150px;">
+      {% if item.image %}
+      <img src="{{ item.image.url }}" alt="{{ item.title }}" class="img-fluid">
+      {% else %}
+      <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="{{ item.title }}" class="img-fluid">
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ item.title }}</h5>
+      <p class="card-text">{{ item.description }}</p>
+      <h6 class="card-subtitle mb-2 text-muted">{{ item.category }}</h6>
+      <p class="card-text fw-bold">${{ item.price }}</p>
+      <a href="#" class="btn btn-outline-success d-block mx-auto w-50">Buy</a>
+      <form method="POST" action="{% url 'delete_item' item.pk %}" class="mt-2">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+  </div>
+</div>
+{% endblock %}

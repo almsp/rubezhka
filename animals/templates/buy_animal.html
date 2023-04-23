@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Купить</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ animal.image.url }}" alt="{{ animal.name }}" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+      <h2>{{ animal.name }}</h2>
+      <p>Порода: {{ animal.breed }}</p>
+      <p>Категория: {{ animal.category }}</p>
+      <p>цена: {{ animal.price }}</p>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Ваше имя</label>
+          <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="email">почта</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="number">Кредитная карта</label>
+          <input type="text" name="number" class="form-control" maxlength="16" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Купить</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

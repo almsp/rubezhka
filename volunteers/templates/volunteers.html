@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Volunteers</h1>
+  <hr>
+  <div class="row">
+    {% for volunteer in volunteers %}
+      <div class="col-md-3">
+        <div class="card mb-4 box-shadow">
+          {% if volunteer.image %}
+            <img class="card-img-top" src="{{ volunteer.image.url }}" alt="{{ volunteer.first_name }} {{ volunteer.last_name }}">
+          {% else %}
+            <img class="card-img-top" src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="{{ volunteer.first_name }} {{ volunteer.last_name }}">
+          {% endif %}
+          <div class="card-body">
+            <h4 class="card-title">{{ volunteer.first_name }} {{ volunteer.last_name }}</h4>
+            <p class="card-text">{{ volunteer.email }}</p>
+            <p class="card-text">{{ volunteer.phone }}</p>
+            <p class="card-text">{{ volunteer.age }} years old</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
